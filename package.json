@@ -1,0 +1,100 @@
+{
+  "name": "vscode-apitaco",
+  "displayName": "Apitaco",
+  "description": "Talk to Claude through Apitaco from inside VS Code. Pay per token, no Anthropic account, no VPN.",
+  "version": "0.1.0",
+  "publisher": "apitaco",
+  "license": "MIT",
+  "homepage": "https://apitaco.com",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/myapitaco/vscode-apitaco"
+  },
+  "bugs": {
+    "url": "https://github.com/myapitaco/vscode-apitaco/issues"
+  },
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": ["AI", "Chat", "Programming Languages", "Other"],
+  "keywords": [
+    "claude", "anthropic", "apitaco", "ai", "llm",
+    "chat", "openai", "copilot-alternative", "openai-compatible"
+  ],
+  "activationEvents": ["onCommand:apitaco.ask"],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "apitaco.ask",
+        "title": "Apitaco: Ask Claude",
+        "category": "Apitaco"
+      },
+      {
+        "command": "apitaco.explainSelection",
+        "title": "Apitaco: Explain Selection",
+        "category": "Apitaco"
+      },
+      {
+        "command": "apitaco.refactorSelection",
+        "title": "Apitaco: Refactor Selection",
+        "category": "Apitaco"
+      }
+    ],
+    "configuration": {
+      "title": "Apitaco",
+      "properties": {
+        "apitaco.apiKey": {
+          "type": "string",
+          "default": "",
+          "description": "Your Apitaco API key. Get one at https://my.apitaco.com/register"
+        },
+        "apitaco.baseUrl": {
+          "type": "string",
+          "default": "https://api.apitaco.tech/v1",
+          "description": "Apitaco API base URL"
+        },
+        "apitaco.model": {
+          "type": "string",
+          "default": "claude-sonnet-4.6",
+          "enum": [
+            "claude-opus-4.7",
+            "claude-opus-4.6",
+            "claude-opus-4.5",
+            "claude-sonnet-4.6",
+            "claude-sonnet-4.5",
+            "claude-haiku-4.5",
+            "gpt-5.5",
+            "gpt-5.4"
+          ],
+          "description": "Default model to use"
+        }
+      }
+    },
+    "menus": {
+      "editor/context": [
+        {
+          "command": "apitaco.explainSelection",
+          "group": "apitaco@1",
+          "when": "editorHasSelection"
+        },
+        {
+          "command": "apitaco.refactorSelection",
+          "group": "apitaco@2",
+          "when": "editorHasSelection"
+        }
+      ]
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "@types/vscode": "^1.85.0",
+    "typescript": "^5.6.0"
+  }
+}
